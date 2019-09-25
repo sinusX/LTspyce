@@ -3,17 +3,21 @@ import os
 
 class Sim:
 
-    name = "";
-    wasExecuted = false
+    filePath = ""
+    wasExecuted = False
 
-    def __init__(self, a_name):
-        self.name = a_name
+    def __init__(self, path):
+        if os.path.isfile(path):
+            self.filePath = path
+        else:
+            raise FileNotFoundError("Couldn't find file: "+path)
+            
 
-    def getName(self):
-        return self.name;
+    def getPath(self):
+        return self.filePath
 
     def run(self):
-        os.system("scad3.exe -Run -b -ascii "+self.name+".asc")
-        wasExecuted = true
+        os.system("scad3.exe -Run -b "+self.filePath)
+        wasExecuted = True
 
         
