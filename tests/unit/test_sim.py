@@ -1,9 +1,12 @@
 import unittest, unittest.mock
-import sys
+import sys, logging
 sys.path.insert(0,'../..')
 import LTspyce.core.sim as LTS_sim
 
 class TestSim(unittest.TestCase):
+
+    def setUp(self):
+        logging.disable(logging.CRITICAL)
 
     @unittest.mock.patch('os.path.isfile')
     def test_constructorSuccess(self, os_path_isfile):

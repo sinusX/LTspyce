@@ -4,25 +4,24 @@ import logging
 
 class Sim:
 
-    filePath = ""
-    wasExecuted = False
-
     def __init__(self, path):
-        self.logger = logging.getLogger('LTspyce.core.sim')
+        self._logger = logging.getLogger(__name__)
         if os.path.isfile(path):
-            self.filePath = path
+            self._filePath = path
+            self._wasExecuted = False
         else:
-            self.logger.error('File %s not found',path)
+            self._logger.error('File %s not found',path)
             raise FileNotFoundError("Couldn't find file: "+path)
-        self.logger.debug('Sim Object (%s) created',path)
+        self._logger.debug('Sim Object (%s) created',path)
             
 
     def getPath(self):
-        return self.filePath
+        return self._filePath
 
     def run(self):
-        os.system("scad3.exe -Run -b "+self.filePath)
+        os.system("scad3.exe -Run -b "+self._filePath)
         wasExecuted = True
-        self.logger.debug('Simulation (%s) executed',self.filePath)
+        self._logger.debug('Simulation (%s) executed',self._filePath)
 
-        
+
+
