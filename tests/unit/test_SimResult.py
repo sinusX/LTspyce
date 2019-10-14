@@ -33,15 +33,20 @@ class TestSimResults_readMetaData(unittest.TestCase):
         logging.disable(logging.CRITICAL)
 
     def test_readMetaDataSuccess(self):
-        testObj = SimRes.SimResult('Test.raw')
+        testObj = SimRes.SimResult('res/Test.raw')
         testObj.readMetadata()
         self.assertEqual(6,testObj.getNoVars())
         self.assertEqual(1101,testObj.getNoPoints())
         self.assertEqual('Sat Oct 05 22:56:39 2019',testObj.getSimDate())
 
+    def test_invalidMetaData(self):
+        testObj = SimRes.SimResult('res/TestINvalidMeta.raw')
+        with self.assertRaises(ValueError):
+            testObj.readMetadata()
+
+
     # TODO cannot open file
     # TODO decode line failed
-    # TODO invalid metadata (line without ":")
 
 
 # TODO read getNoVars before available
